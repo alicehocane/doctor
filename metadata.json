@@ -1,0 +1,5 @@
+{
+  "name": "Directorio Médico Minimalista",
+  "description": "Un directorio de médicos móvil-primero con diseño minimalista estilo Apple, optimizado para búsqueda y filtrado por especialidades, ciudades y enfermedades.",
+  "requestFramePermissions": []
+}

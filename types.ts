@@ -1,32 +1,44 @@
 
 export interface Location {
+  n: string; // name
+  a: string; // address
+}
+
+export interface ResolvedLocation {
   name: string;
   address: string;
   map_url: string;
 }
 
 export interface Doctor {
-  id: string;
-  slug: string;
-  name: string;
-  license: string;
-  phones: string[];
-  locations: Location[];
-  specialty_ids: number[];
-  city_ids: number[];
-  disease_ids: number[];
+  n: string;   // name
+  l: string;   // license
+  p: string[]; // phones
+  lo: Location[]; // locations
+  s: number[]; // specialty_ids
+  c: number[]; // city_ids
+  d: number[]; // disease_ids
+  f?: number[]; // focus_ids
 }
 
 export interface Lookups {
   specialties: string[];
   cities: string[];
   diseases: string[];
+  focus: string[];
 }
 
-export interface ResolvedDoctor extends Omit<Doctor, 'specialty_ids' | 'city_ids' | 'disease_ids'> {
+export interface ResolvedDoctor {
+  id: string;
+  slug: string;
+  name: string;
+  license: string;
+  phones: string[];
   specialties: string[];
   cities: string[];
   diseases: string[];
+  focus: string[];
+  locations: ResolvedLocation[];
 }
 
 export type ViewState = 
@@ -72,4 +84,10 @@ export type ViewState =
     }
   | {
       type: 'contact';
+    }
+  | {
+      type: 'legal';
+    }
+  | {
+      type: 'faq-page';
     };

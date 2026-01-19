@@ -9,10 +9,16 @@ interface DoctorCardProps {
 }
 
 const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onClick }) => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onClick(doctor.slug);
+  };
+
   return (
-    <div 
-      onClick={() => onClick(doctor.slug)}
-      className="bg-white rounded-[2rem] p-6 mb-4 apple-shadow apple-card-hover transition-all cursor-pointer group active:scale-[0.97]"
+    <a 
+      href={`#/doctor/${doctor.slug}`}
+      onClick={handleClick}
+      className="block bg-white rounded-[2rem] p-6 mb-4 apple-shadow apple-card-hover transition-all cursor-pointer group active:scale-[0.97]"
     >
       <div className="flex items-start gap-4 mb-4">
         <div className="flex-1 min-w-0">
@@ -57,7 +63,7 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onClick }) => {
           </span>
         )}
       </div>
-    </div>
+    </a>
   );
 };
 

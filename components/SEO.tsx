@@ -36,7 +36,7 @@ const SEO: React.FC<SEOProps> = ({ title, description, canonicalPath, doctor, sp
     updateMeta('og:description', description, 'property');
     updateMeta('og:url', fullUrl, 'property');
     updateMeta('og:type', doctor ? 'profile' : 'website', 'property');
-    updateMeta('og:site_name', 'Directorio Médico Minimalista', 'property');
+    updateMeta('og:site_name', 'Directorio Médico', 'property');
 
     // 3. Canonical Link
     let canonical = document.querySelector('link[rel="canonical"]');
@@ -102,11 +102,28 @@ const SEO: React.FC<SEOProps> = ({ title, description, canonicalPath, doctor, sp
         "medicalSpecialty": doctor.specialties,
         "description": description,
         "telephone": doctor.phones[0],
-        "address": doctor.locations.map(loc => ({
-          "@type": "PostalAddress",
-          "streetAddress": loc.address,
-          "addressLocality": doctor.cities[0],
-          "addressCountry": "MX"
+        "areaServed": doctor.cities.map(city => ({
+          "@type": "City",
+          "name": city
+        })),
+        // Focused areas of interest/knowledge
+        "knowsAbout": doctor.focus,
+        // Specific diseases treated
+        "medicalConditionTreated": doctor.diseases.map(disease => ({
+          "@type": "MedicalCondition",
+          "name": disease
+        })),
+        // Professional affiliations / hospitals
+        "worksFor": doctor.locations.map(loc => ({
+          "@type": "MedicalOrganization",
+          "name": loc.name,
+          "address": {
+            "@type": "PostalAddress",
+            "streetAddress": loc.address,
+            "addressLocality": doctor.cities[0],
+            "addressCountry": "MX"
+          },
+          "hasMap": loc.map_url
         })),
         "url": fullUrl,
         "hasCredential": {

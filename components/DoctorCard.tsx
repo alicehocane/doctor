@@ -9,10 +9,19 @@ interface DoctorCardProps {
 }
 
 const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onClick }) => {
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    onClick(doctor.slug);
+  };
+
+  const diseasesToShow = doctor.diseases.slice(0, 3);
+  const hasMoreDiseases = doctor.diseases.length > 3;
+
   return (
-    <div 
-      onClick={() => onClick(doctor.slug)}
-      className="bg-white rounded-[2rem] p-6 mb-4 apple-shadow apple-card-hover transition-all cursor-pointer group active:scale-[0.97]"
+    <a 
+      href={`#/doctor/${doctor.slug}`}
+      onClick={handleClick}
+      className="block bg-white rounded-[2rem] p-6 mb-4 apple-shadow apple-card-hover transition-all cursor-pointer group active:scale-[0.97]"
     >
       <div className="flex items-start gap-4 mb-4">
         <div className="flex-1 min-w-0">
@@ -43,21 +52,21 @@ const DoctorCard: React.FC<DoctorCardProps> = ({ doctor, onClick }) => {
       </div>
 
       <div className="mt-5 flex flex-wrap gap-2">
-        {doctor.diseases.slice(0, 3).map((disease, idx) => (
+        {diseasesToShow.map((disease, idx) => (
           <span 
             key={idx} 
-            className="bg-[#F5F5F7] text-[#1D1D1F] px-3 py-1 rounded-full text-[10px] font-bold tracking-tight border border-transparent group-hover:border-gray-200 transition-all"
+            className="px-3 py-1 rounded-full text-[10px] font-bold tracking-tight bg-[#F5F5F7] text-[#1D1D1F] border border-transparent group-hover:border-gray-200 transition-all"
           >
             {disease}
           </span>
         ))}
-        {doctor.diseases.length > 3 && (
+        {hasMoreDiseases && (
           <span className="text-[10px] font-bold text-[#86868B] flex items-center">
             +{doctor.diseases.length - 3} más
           </span>
         )}
       </div>
-    </div>
+    </a>
   );
 };
 

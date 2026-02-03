@@ -43,7 +43,7 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange, currentFilters }) => 
         </div>
         <input 
           type="text"
-          placeholder="Nombre, especialidad o clínica"
+          placeholder="Nombre, especialidad o ciudad"
           value={currentFilters.query}
           onChange={handleQueryChange}
           className="w-full h-14 pl-12 pr-12 bg-gray-200/50 border-none rounded-2xl text-[17px] font-medium placeholder:text-[#86868B] focus:bg-white focus:ring-4 focus:ring-blue-100 transition-all outline-none"
@@ -86,6 +86,14 @@ const Filters: React.FC<FiltersProps> = ({ onFilterChange, currentFilters }) => 
             className="flex items-center gap-2 px-4 h-10 rounded-full bg-blue-50 text-blue-600 text-sm font-bold border border-blue-100 shrink-0"
           >
             {currentFilters.city} <X size={14} />
+          </button>
+        )}
+        {currentFilters.disease && (
+          <button 
+            onClick={() => handleSelect('disease', null)}
+            className="flex items-center gap-2 px-4 h-10 rounded-full bg-blue-50 text-blue-600 text-sm font-bold border border-blue-100 shrink-0"
+          >
+            {currentFilters.disease} <X size={14} />
           </button>
         )}
       </div>

@@ -1,4 +1,2 @@
 User-agent: *
-Allow: /
-
-Sitemap: https://directoriomedico.mx/sitemap.xml
+Disallow: /
